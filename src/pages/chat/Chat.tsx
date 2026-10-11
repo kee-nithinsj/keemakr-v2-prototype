@@ -311,7 +311,7 @@ export function Chat() {
           {empty ? (
             <div className="grid content-end justify-items-center pb-[22px] text-center">
               <KeeMark size="lg" className="mb-4" />
-              <h2 className="mb-1.5 text-[26px] leading-8 font-medium tracking-[-0.02em]">Good {partOfDay()}, Teodora</h2>
+              <h2 className="mb-1.5 text-[26px] leading-8 font-medium tracking-[-0.02em]">Good {partOfDay()}, Clara</h2>
               <p className="m-0 text-ink-3">Your call with <b className="font-normal text-ink-2">Dr. Maya Ellison</b> is next, and <b className="font-normal text-ink-2">Priya</b> is waiting on a reply.</p>
             </div>
           ) : (
@@ -335,7 +335,7 @@ export function Chat() {
         <div className="mx-auto w-full max-w-[1008px] px-6">
           {approval?.kind === 'send' && approval.phase !== 'sent' ? (
             <div className="mb-2 animate-rise rounded-[10px] border border-accent-line bg-surface px-3.5 pt-3.5 pb-3 shadow-lift">
-              <div className="mb-1.5 font-medium text-ink">Send 20 emails from teodora@larkline.co?</div>
+              <div className="mb-1.5 font-medium text-ink">Send 20 emails from clara@larkline.co?</div>
               <p className="text-[13.5px] leading-[22.4px] text-ink-3">They go out one every few minutes so they don't land as a batch. Replies come back to this chat.</p>
               <div className="mt-3.5 flex items-center justify-end gap-2 border-t border-line pt-3">
                 {approval.phase === 'hold' ? (

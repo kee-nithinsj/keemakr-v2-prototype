@@ -129,7 +129,7 @@ export function Today() {
         <div className="mb-2.5 flex items-center gap-2 text-[11px] leading-4 font-medium tracking-[0.08em] text-ink-3 uppercase">
           {heading}
           <span className="flex-1" />
-          <span className="text-ink-4" title="Google Calendar · teodora@larkline.co">
+          <span className="text-ink-4" title="Google Calendar · clara@larkline.co">
             <BrandLogo name="gcal" size={12} mono />
           </span>
         </div>
