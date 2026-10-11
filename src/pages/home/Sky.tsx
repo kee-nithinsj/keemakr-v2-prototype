@@ -5,10 +5,10 @@ import type { ThemeName } from '@/components/shell/shell-context';
 export type SkyName = 'sun' | 'cloud' | 'rain' | 'night';
 
 export const SKY_LABEL: Record<SkyName, string> = {
-  sun: 'Sunny, 31°',
-  cloud: 'Cloudy, 27°',
-  rain: 'Light rain, 24°',
-  night: 'Clear night, 23°',
+  sun: 'Sunny, 68°',
+  cloud: 'Foggy, 61°',
+  rain: 'Light rain, 56°',
+  night: 'Clear night, 54°',
 };
 
 const ORDER: SkyName[] = ['sun', 'cloud', 'rain', 'night'];
@@ -92,7 +92,7 @@ export function Sky({ sky, theme, onCycle }: { sky: SkyName; theme: ThemeName; o
     <button
       type="button"
       onClick={onCycle}
-      aria-label={`Weather in Bengaluru: ${SKY_LABEL[sky]}. Change the weather`}
+      aria-label={`Weather in San Francisco: ${SKY_LABEL[sky]}. Change the weather`}
       className="mb-5 block h-[168px] w-full shrink-0 cursor-pointer border-0 bg-transparent p-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-line focus-visible:-outline-offset-1"
     >
       <svg viewBox="0 0 2400 180" preserveAspectRatio="xMidYMax slice" className="block h-full w-full" style={vars} aria-hidden>

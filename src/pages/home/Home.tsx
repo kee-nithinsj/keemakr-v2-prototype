@@ -157,7 +157,7 @@ export function Home() {
                 <div className="mx-auto w-[min(880px,calc(100%-96px))]">
                   <header className="animate-rise motion-reduce:animate-none">
                     <div className="text-meta text-ink-3 tabular-nums">
-                      {date} · {clock} · Bengaluru, {weather.charAt(0).toLowerCase() + weather.slice(1)}
+                      {date} · {clock} · San Francisco, {weather.charAt(0).toLowerCase() + weather.slice(1)}
                     </div>
                     <h1 className="mt-2 mb-1.5 text-greeting font-medium tracking-[-0.02em] text-ink">Good {part}, Teodora</h1>
                     <p className="text-lead text-ink-3">
