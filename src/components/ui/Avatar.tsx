@@ -27,23 +27,27 @@ const SIZE = {
 type Props = {
   initials: string;
   face?: FaceId;
+  /** A single portrait, for people outside the face sheet. */
+  photo?: string;
   size?: keyof typeof SIZE;
   anon?: boolean;
   badge?: ReactNode;
   className?: string;
 };
 
-export function Avatar({ initials, face, size = 'md', anon, badge, className }: Props) {
+export function Avatar({ initials, face, photo, size = 'md', anon, badge, className }: Props) {
   const pos = face ? FACES[face] : undefined;
-  const style: CSSProperties | undefined = pos
-    ? { backgroundImage: 'url(/faces.jpg)', backgroundPosition: `${X[pos[0]]} ${Y[pos[1]]}`, backgroundSize: '360% 360%' }
-    : undefined;
+  const style: CSSProperties | undefined = photo
+    ? { backgroundImage: `url(${photo})`, backgroundPosition: 'center', backgroundSize: 'cover' }
+    : pos
+      ? { backgroundImage: 'url(/faces.jpg)', backgroundPosition: `${X[pos[0]]} ${Y[pos[1]]}`, backgroundSize: '360% 360%' }
+      : undefined;
   return (
     <span
       className={cx(
         'relative grid shrink-0 place-items-center rounded-full bg-surface-2 font-medium text-ink-2',
         SIZE[size],
-        pos && 'text-transparent',
+        (pos || photo) && 'text-transparent',
         anon && 'border border-dashed border-line-2 bg-transparent text-ink-3',
         className,
       )}

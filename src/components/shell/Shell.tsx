@@ -6,6 +6,7 @@ import { cx } from '@/lib/cx';
 import { ease } from '@/lib/motion';
 import { row } from '@/lib/ui';
 import { Dotm } from '@/components/ui/Dotm';
+import { Avatar } from '@/components/ui/Avatar';
 import { KeeMark } from '@/components/ui/KeeMark';
 import { IconButton } from '@/components/ui/Button';
 import {
@@ -137,7 +138,7 @@ export function Shell() {
             </button>
           </div>
           <div className={cx(row, 'h-[30px] px-1')}>
-            <span className="grid size-[22px] place-items-center rounded-full bg-surface-2 text-[10px] font-medium text-ink-2">CV</span>
+            <Avatar photo="/clara.jpg" initials="CV" className="size-[22px]" />
             <span className="min-w-0 flex-1 truncate">Clara Vance</span>
             <IconButton aria-label="Switch theme" title="Switch theme" onClick={toggleTheme}>
               {theme === 'light' ? <IconMoon /> : <IconSun />}
