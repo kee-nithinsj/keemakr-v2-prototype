@@ -16,7 +16,7 @@ export const NEEDS: Need[] = [
     icon: 'gmail',
     kind: 'Approval · Austin clinics outreach',
     title: 'Send 20 emails to Austin clinics',
-    detail: 'From nithin@keemakr.ai through Gmail. This approval covers these 20 emails only.',
+    detail: 'From teodora@larkline.co through Gmail. This approval covers these 20 emails only.',
     actions: [
       { kind: 'approve', label: 'Approve and send', primary: true },
       { kind: 'link', label: 'Review drafts', to: '/chat/austin' },

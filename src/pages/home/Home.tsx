@@ -159,7 +159,7 @@ export function Home() {
                     <div className="text-meta text-ink-3 tabular-nums">
                       {date} · {clock} · Bengaluru, {weather.charAt(0).toLowerCase() + weather.slice(1)}
                     </div>
-                    <h1 className="mt-2 mb-1.5 text-greeting font-medium tracking-[-0.02em] text-ink">Good {part}, Nithin</h1>
+                    <h1 className="mt-2 mb-1.5 text-greeting font-medium tracking-[-0.02em] text-ink">Good {part}, Teodora</h1>
                     <p className="text-lead text-ink-3">
                       {count > 0 ? (
                         <><b className="font-normal text-ink-2">{count} thing{count === 1 ? '' : 's'} need{count === 1 ? 's' : ''} you.</b> Kee handled 31 today.</>

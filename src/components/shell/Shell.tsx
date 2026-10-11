@@ -137,8 +137,8 @@ export function Shell() {
             </button>
           </div>
           <div className={cx(row, 'h-[30px] px-1')}>
-            <span className="grid size-[22px] place-items-center rounded-full bg-surface-2 text-[10px] font-medium text-ink-2">NS</span>
-            <span className="min-w-0 flex-1 truncate">Nithin SJ</span>
+            <span className="grid size-[22px] place-items-center rounded-full bg-surface-2 text-[10px] font-medium text-ink-2">TV</span>
+            <span className="min-w-0 flex-1 truncate">Teodora Vance</span>
             <IconButton aria-label="Switch theme" title="Switch theme" onClick={toggleTheme}>
               {theme === 'light' ? <IconMoon /> : <IconSun />}
             </IconButton>

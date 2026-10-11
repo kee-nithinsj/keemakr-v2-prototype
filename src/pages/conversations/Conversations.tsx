@@ -343,7 +343,7 @@ export function Conversations() {
           <dl className="m-0 grid grid-cols-[52px_minmax(0,1fr)] gap-x-2.5 gap-y-1 text-[12.5px]">
             <dt className="text-ink-3">To</dt><dd className="m-0 truncate">{person.name} · {person.email}</dd>
             <dt className="text-ink-3">Via</dt><dd className="m-0">Email</dd>
-            <dt className="text-ink-3">From</dt><dd className="m-0">nithin@keemakr.ai</dd>
+            <dt className="text-ink-3">From</dt><dd className="m-0">teodora@larkline.co</dd>
           </dl>
           <p className="text-meta text-ink-3">{pop.which === 'booking' ? "Sending the link doesn't book her. The demo counts once Google Calendar confirms it." : "She's verified only after she opens the link and confirms. Clicking alone doesn't count."}</p>
           <div className="flex justify-end gap-1.5">
@@ -423,7 +423,7 @@ function Message({ msg, person, editing, onEdit, onDraft, onCheck }: {
       <div className={cx('flex items-center gap-1.5 text-meta text-ink-3', !incoming && 'justify-end')}>
         {incoming ? <Avatar face={person.face} initials={person.anon ? '?' : person.initials} size="sm" anon={person.anon} /> : null}
         {msg.k === 'kee' ? <KeeMark size="md" /> : null}
-        {msg.k === 'me' ? <span className="grid size-[18px] place-items-center rounded-full bg-surface-2 text-[9px] font-medium text-ink-2">NS</span> : null}
+        {msg.k === 'me' ? <span className="grid size-[18px] place-items-center rounded-full bg-surface-2 text-[9px] font-medium text-ink-2">TV</span> : null}
         {staff ? <Avatar face="jess" initials="JP" size="sm" /> : null}
         <b className="font-medium text-ink-2">{who}</b>
         {msg.k === 'kee' ? <span>· {msg.approved ? 'approved by you' : 'sent automatically'}</span> : null}

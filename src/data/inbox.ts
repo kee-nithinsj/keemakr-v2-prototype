@@ -7,7 +7,7 @@ export const PEOPLE: Record<string, Person> = {
     id: 'maya', name: 'Dr. Maya Ellison', initials: 'ME', org: 'Lumen Aesthetics · San Diego', face: 'maya',
     handles: [['Email', 'maya@lumenaesthetics.com', 'Verified'], ['Phone', '+1 619 555 0142', 'Verified']],
     journey: [['Enquired', 'done', '2 Oct'], ['Verified', 'done', '3 Oct'], ['Demo booked', 'now', 'Waiting on her'], ['Signed', 'todo', '']],
-    lead: [['Source', 'Med spa intro · email'], ['Score', '86'], ['Owner', 'Nithin SJ']],
+    lead: [['Source', 'Med spa intro · email'], ['Score', '86'], ['Owner', 'Teodora Vance']],
     rules: [['Contact', 'Allowed · replied 2 Oct'], ['Quiet hours', '9 pm – 8 am her time'], ['Stops if', 'She asks us to stop']],
     email: 'maya@lumenaesthetics.com', phone: '+1 619 555 0142',
   },
@@ -15,7 +15,7 @@ export const PEOPLE: Record<string, Person> = {
     id: 'priya', name: 'Priya Natarajan', initials: 'PN', org: 'Glow House Med Spa · Irvine', face: 'priya',
     handles: [['Email', 'priya@glowhouse.co', 'Verified'], ['Phone', '+1 949 555 0177', 'Not verified']],
     journey: [['Enquired', 'done', '28 Sep'], ['Verified', 'done', '29 Sep'], ['Proposal sent', 'now', '9 Oct'], ['Signed', 'todo', '']],
-    lead: [['Source', 'Website chat'], ['Score', '81'], ['Owner', 'Nithin SJ']],
+    lead: [['Source', 'Website chat'], ['Score', '81'], ['Owner', 'Teodora Vance']],
     rules: [['Contact', 'Allowed · asked for a quote'], ['Quiet hours', '9 pm – 8 am her time'], ['Stops if', 'She asks us to stop']],
     email: 'priya@glowhouse.co', phone: '+1 949 555 0177',
   },
@@ -28,7 +28,7 @@ export const PEOPLE: Record<string, Person> = {
     id: 'ana', name: 'Ana Lima', initials: 'AL', org: 'Bloom Skin Studio · Austin', face: 'ana',
     handles: [['Phone', '+1 512 555 0108', 'Verified']],
     journey: [['Enquired', 'done', '6 Oct'], ['Verified', 'done', '6 Oct'], ['Demo booked', 'done', 'Thu 14:30'], ['Signed', 'todo', '']],
-    lead: [['Source', 'Instagram'], ['Score', '77'], ['Owner', 'Nithin SJ']],
+    lead: [['Source', 'Instagram'], ['Score', '77'], ['Owner', 'Teodora Vance']],
     rules: [['Contact', 'Allowed · booked a demo'], ['Quiet hours', '9 pm – 8 am her time'], ['Stops if', 'She asks us to stop']],
     email: 'ana@bloomskin.studio', phone: '+1 512 555 0108',
   },
@@ -51,7 +51,7 @@ export const PEOPLE: Record<string, Person> = {
     id: 'dana', name: 'Dana Wu', initials: 'DW', org: 'Aura Aesthetics · Phoenix', face: 'dana',
     handles: [['Email', 'dana@aura.clinic', 'Verified']],
     journey: [['Enquired', 'done', '5 Oct'], ['Verified', 'done', '5 Oct'], ['Demo booked', 'done', 'Fri 11:00'], ['Signed', 'todo', '']],
-    lead: [['Source', 'Med spa intro · email'], ['Score', '69'], ['Owner', 'Nithin SJ']],
+    lead: [['Source', 'Med spa intro · email'], ['Score', '69'], ['Owner', 'Teodora Vance']],
     rules: [['Contact', 'Allowed'], ['Quiet hours', '9 pm – 8 am her time'], ['Stops if', 'She asks us to stop']],
   },
 };
@@ -65,9 +65,9 @@ export const CONVOS: Conversation[] = [
     { id: 'm5', k: 'in', text: 'Interesting. What would it cost for us? And can I talk to someone?', at: '7:02 pm' },
     { id: 'm6', k: 'act', icon: 'hand', hand: true, text: '<b>Kee handed this to you</b> · She asked for a person and for pricing. Kee is paused here.' },
   ] },
-  { id: 'maya-em', person: 'maya', ch: 'email', from: 'nithin@keemakr.ai', owner: 'kee', need: null, at: '2 Oct', msgs: [
+  { id: 'maya-em', person: 'maya', ch: 'email', from: 'teodora@larkline.co', owner: 'kee', need: null, at: '2 Oct', msgs: [
     { id: 'e1', k: 'act', icon: 'arrow', text: 'Outreach email <b>Med spa intro</b> · sent 2 Oct, opened twice' },
-    { id: 'e2', k: 'in', text: "Thanks Nithin — I'll message you on WhatsApp, easier for me.", at: '2 Oct' },
+    { id: 'e2', k: 'in', text: "Thanks Teodora — I'll message you on WhatsApp, easier for me.", at: '2 Oct' },
     { id: 'e3', k: 'kee', text: "Perfect — I'll keep an eye out for you there.", at: '2 Oct', st: 'Delivered' },
   ] },
   { id: 'priya-wa', person: 'priya', ch: 'whatsapp', from: 'Kee Sales · +1 512 555 0100', owner: 'kee', need: 'Kee wants you to check a reply', at: '6:41 pm', msgs: [
@@ -104,7 +104,7 @@ export const CONVOS: Conversation[] = [
     { id: 'j3', k: 'act', icon: 'hand', text: '<b>Jess took over</b> · 2:58 pm' },
     { id: 'j4', k: 'staff', who: 'jess', text: 'Thanks Jordan — both edits are fine. Sending the updated contract shortly.', at: '3:30 pm', st: 'Delivered' },
   ] },
-  { id: 'dana-em', person: 'dana', ch: 'email', from: 'nithin@keemakr.ai', owner: 'kee', need: null, at: 'Yesterday', msgs: [
+  { id: 'dana-em', person: 'dana', ch: 'email', from: 'teodora@larkline.co', owner: 'kee', need: null, at: 'Yesterday', msgs: [
     { id: 'd1', k: 'in', text: 'Friday at 11 works.', at: 'Yesterday' },
     { id: 'd2', k: 'act', icon: 'cal', text: '<b>Demo booked</b> · Fri 11:00 · confirmed by Google Calendar' },
     { id: 'd3', k: 'kee', text: 'Booked — see you Friday at 11. The invite has the call link.', at: 'Yesterday', st: 'Delivered' },
