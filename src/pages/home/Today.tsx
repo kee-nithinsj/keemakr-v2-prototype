@@ -259,7 +259,7 @@ function EventRow({
           <small className="block truncate text-caption text-ink-3">{ev.sub}</small>
         </div>
         {next ? (
-          <div className="mt-[3px] flex w-full basis-full items-center gap-[5px]">
+          <div className="mt-[3px] flex w-full basis-full items-center justify-around gap-[5px]">
             {sent ? (
               <span className="inline-flex h-6 items-center gap-[5px] px-1 text-meta text-ink-2">
                 <IconCheck size={11} className="text-ok" /> Kee joins
