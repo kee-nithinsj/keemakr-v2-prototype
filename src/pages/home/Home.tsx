@@ -22,6 +22,9 @@ const HAP_ICON: Record<HapIcon, typeof IconTable> = {
 
 const KEYS = ['A', 'B', 'C', 'D'] as const;
 
+/** Inside another page's frame (the marketing site), the sky banner is left out. */
+const EMBEDDED = window.self !== window.top;
+
 export function Home() {
   const { theme, setHomeCount, showToast } = useShell();
   const navigate = useNavigate();
@@ -147,7 +150,7 @@ export function Home() {
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--wb-dot)_0.55px,transparent_0.65px)] [background-size:var(--wb-size)_var(--wb-size)]"
           />
-          <Sky sky={sky} theme={theme} onCycle={() => setSky((s) => nextSky(s))} />
+          {EMBEDDED ? <div className="h-10 shrink-0" /> : <Sky sky={sky} theme={theme} onCycle={() => setSky((s) => nextSky(s))} />}
           <div className="relative grid min-h-0 flex-1 grid-cols-1 min-[1180px]:grid-cols-[minmax(0,1fr)_340px]">
             <div className="relative grid min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)_auto]">
               <div className="pb-[18px]">
