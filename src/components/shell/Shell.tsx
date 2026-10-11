@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { CHATS } from '@/data/fixtures';
+import { DEPARTMENTS, type Department } from '@/data/modules';
 import { cx } from '@/lib/cx';
 import { ease } from '@/lib/motion';
 import { row } from '@/lib/ui';
@@ -12,14 +13,15 @@ import { IconButton } from '@/components/ui/Button';
 import {
   IconChat,
   IconCheck,
+  IconChevronDown,
   IconDept,
   IconHome,
-  IconMail,
   IconMoon,
   IconPlus,
   IconSearch,
   IconSidebar,
   IconSun,
+  IconTable,
 } from '@/components/ui/icons';
 import { useShell } from './shell-context';
 
@@ -27,13 +29,14 @@ const NAV = [
   { to: '/', label: 'Home', icon: IconHome, end: true },
   { to: '/chat/new', label: 'New chat', icon: IconPlus, kbd: '⌘N' },
   { to: '/conversations', label: 'Conversations', icon: IconChat },
+  { to: '/tables', label: 'Tables', icon: IconTable },
 ] as const;
 
 type PalItem = { group: string; label: string; hint: string; to: string };
 
 export function Shell() {
   const navigate = useNavigate();
-  const { theme, toggleTheme, sideOpen, setSideOpen, homeCount, inboxCount, showToast } = useShell();
+  const { theme, toggleTheme, sideOpen, setSideOpen, homeCount, inboxCount } = useShell();
   const [palOpen, setPalOpen] = useState(false);
 
   useEffect(() => {
@@ -97,17 +100,9 @@ export function Shell() {
           ))}
         </nav>
         <div className="mt-2.5 flex min-h-0 flex-1 flex-col overflow-auto [scrollbar-width:none]">
-          <div className="flex h-[30px] items-center justify-between px-[7px] text-ui text-ink-3">
-            Departments
-            <button type="button" aria-label="Add department" className="rounded p-0.5 hover:bg-hover hover:text-ink">
-              <IconPlus size={13} />
-            </button>
-          </div>
-          {['Sales', 'Recruiting', 'Operations'].map((name) => (
-            <button key={name} type="button" className={row}>
-              <IconDept size={16} />
-              <span className="min-w-0 flex-1 truncate">{name}</span>
-            </button>
+          <div className="flex h-[30px] items-center px-[7px] text-ui text-ink-3">Departments</div>
+          {DEPARTMENTS.map((d) => (
+            <DepartmentRow key={d.slug} dept={d} />
           ))}
           <div className="mt-2.5 flex h-[30px] items-center px-[7px] text-ui text-ink-3">Chats</div>
           {CHATS.slice(0, 5).map((chat) => (
@@ -121,22 +116,6 @@ export function Shell() {
           ))}
         </div>
         <div className="grid gap-2.5 py-2 pb-3">
-          <div className="grid gap-1.5 rounded-lg border border-edge px-2 pt-1.5 pb-2">
-            <div className="flex h-[22px] items-center justify-between text-ui text-ink-3">
-              <span>Getting started</span>
-              <span className="inline-flex items-center gap-[5px] tabular-nums">
-                2/3 <i className="size-2.5 rounded-full border-[1.5px] border-ink-3" />
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={() => showToast('Gmail connects from settings')}
-              className="flex h-6 items-center justify-center gap-1.5 rounded-md bg-chip text-ui text-ink hover:bg-surface-2"
-            >
-              <IconMail size={12} />
-              Connect Gmail
-            </button>
-          </div>
           <div className={cx(row, 'h-[30px] px-1')}>
             <Avatar photo="/clara.jpg" initials="CV" className="size-[22px]" />
             <span className="min-w-0 flex-1 truncate">Clara Vance</span>
@@ -153,6 +132,40 @@ export function Shell() {
   );
 }
 
+/** Open by default so people find what each department can show them. */
+function DepartmentRow({ dept }: { dept: Department }) {
+  const [open, setOpen] = useState(true);
+  return (
+    <div>
+      <button type="button" aria-expanded={open} onClick={() => setOpen((v) => !v)} className={cx(row, 'group/dept')}>
+        <IconDept size={16} />
+        <span className="min-w-0 flex-1 truncate">{dept.name}</span>
+        <IconChevronDown size={12} className={cx('text-ink-4 transition-transform duration-200 ease-kee', !open && '-rotate-90')} />
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
+        transition={ease(220)}
+        className="overflow-hidden"
+      >
+        <div className="relative ml-[15px] border-l border-line pl-[9px]">
+          {dept.screens.map((s) => (
+            <NavLink key={s.id} to={`/m/${dept.slug}/${s.id}`} className={row}>
+              <span className="min-w-0 flex-1 truncate">{s.label}</span>
+            </NavLink>
+          ))}
+          {dept.tables.map((t) => (
+            <NavLink key={t.id} to={`/tables/${t.id}`} className={cx(row, 'text-ink-3')}>
+              <IconTable size={13} className="text-ink-4" />
+              <span className="min-w-0 flex-1 truncate">{t.label}</span>
+            </NavLink>
+          ))}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 function Palette({ open, onClose, inboxCount }: { open: boolean; onClose: () => void; inboxCount: number }) {
   const navigate = useNavigate();
   const [q, setQ] = useState('');
@@ -161,6 +174,10 @@ function Palette({ open, onClose, inboxCount }: { open: boolean; onClose: () => 
     () => [
       { group: 'Go', label: 'Home', hint: '', to: '/' },
       { group: 'Go', label: 'Conversations', hint: `${inboxCount} need you`, to: '/conversations' },
+      ...DEPARTMENTS.flatMap((d) => [
+        ...d.screens.map((s) => ({ group: d.name, label: `${d.name} ${s.label.toLowerCase()}`, hint: '', to: `/m/${d.slug}/${s.id}` })),
+        ...d.tables.map((t) => ({ group: d.name, label: t.label, hint: 'Table', to: `/tables/${t.id}` })),
+      ]),
       ...CHATS.map((c) => ({ group: 'Chats', label: c.title, hint: c.at, to: `/chat/${c.id}` })),
       { group: 'Actions', label: 'New chat', hint: '⌘N', to: '/chat/new' },
     ],
