@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type RefObject } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { IconButton } from '@/components/ui/Button';
+import { Dotm } from '@/components/ui/Dotm';
 import { KeeMark } from '@/components/ui/KeeMark';
 import { IconArrowUp, IconCal, IconChat, IconCheck, IconChevronRight, IconPeople, IconPlus, IconSearch, IconSidebar } from '@/components/ui/icons';
 import { useShell } from '@/components/shell/shell-context';
@@ -54,7 +56,6 @@ export function Chat() {
   const handed = params.get('q');
   const navigate = useNavigate();
   const { theme, setSideOpen, showToast } = useShell();
-  const [title, setTitle] = useState('Austin clinics outreach');
   const [empty, setEmpty] = useState(false);
   const [blocks, setBlocks] = useState<Block[]>([]);
   const [card, setCard] = useState<Card | null>(null);
@@ -125,18 +126,15 @@ export function Chat() {
       if (q) {
         setParams({}, { replace: true });
         setEmpty(false);
-        setTitle(q.length > 38 ? `${q.slice(0, 38)}…` : q);
         await answer(q, alive);
         return;
       }
       setEmpty(true);
-      setTitle('New chat');
       setChip(austinSent ? null : chipOf());
       return;
     }
     setEmpty(false);
     const known = CHATS.find((c) => c.id === chatId);
-    setTitle(known?.title ?? chatId);
     if (chatId === 'austin') return austin(alive);
     if (chatId === 'plan') return plan(alive);
     return recap(known?.title ?? chatId, chatId === 'acme', alive);
@@ -261,10 +259,7 @@ export function Chat() {
     if (!q) return;
     setDraft('');
     if (taRef.current) taRef.current.style.height = '';
-    if (empty) {
-      setEmpty(false);
-      setTitle(q.length > 38 ? `${q.slice(0, 38)}…` : q);
-    }
+    if (empty) setEmpty(false);
     const mine = gen.current;
     await answer(q, () => gen.current === mine);
   }
@@ -300,20 +295,19 @@ export function Chat() {
 
   return (
     <main
-      className={cx(canvas, 'grid text-chat transition-[grid-template-rows] duration-[420ms] ease-kee', empty ? 'grid-rows-[auto_minmax(0,1fr)_auto_minmax(0,1.15fr)]' : 'grid-rows-[auto_minmax(0,1fr)_auto_minmax(0,0fr)]')}
+      className={cx(canvas, 'grid text-chat transition-[grid-template-rows] duration-[420ms] ease-kee', empty ? 'grid-rows-[minmax(0,1fr)_auto_minmax(0,1.15fr)]' : 'grid-rows-[minmax(0,1fr)_auto_minmax(0,0fr)]')}
       style={theme === 'light' ? canvasLight : undefined}
     >
-      <header className={cx('border-b border-line px-6 py-2.5', empty && 'border-transparent')}>
-        <div className="mx-auto flex w-full max-w-[1008px] items-center gap-0.5">
-          <IconButton aria-label="Open sidebar" title="Open sidebar  ⌘B" onClick={() => setSideOpen(true)} className="mr-0.5 hidden group-data-[side=closed]:grid">
+      <div ref={threadRef} className="min-h-0 overflow-y-auto [scrollbar-width:none]">
+        <div className={cx('mx-auto w-full max-w-[1008px] px-6 pb-10', empty ? 'grid h-full pt-2.5' : 'pt-6')}>
+          <IconButton
+            aria-label="Open sidebar"
+            title="Open sidebar  ⌘B"
+            onClick={() => setSideOpen(true)}
+            className="mb-1 hidden group-data-[side=closed]:grid max-[760px]:grid"
+          >
             <IconSidebar size={15} />
           </IconButton>
-          <h1 className={cx('m-0 min-w-0 flex-1 truncate text-[22px] leading-7 font-medium tracking-[-0.02em]', empty && 'invisible')}>{title}</h1>
-        </div>
-      </header>
-
-      <div ref={threadRef} className="min-h-0 overflow-y-auto [scrollbar-width:none]">
-        <div className={cx('mx-auto w-full max-w-[1008px] px-6 pt-2.5 pb-10', empty && 'grid h-full')}>
           {empty ? (
             <div className="grid content-end justify-items-center pb-[22px] text-center">
               <KeeMark size="lg" className="mb-4" />
@@ -386,11 +380,22 @@ export function Chat() {
           ) : null}
 
           {chip && !empty ? (
-            <div className="mb-[7px] flex">
-              <button type="button" onClick={() => { if (id === 'austin' && !austinSent) setRun((n) => n + 1); else navigate('/chat/austin'); }} className="inline-flex h-[21px] items-center gap-1.5 rounded-full bg-chip px-[9px] text-meta text-ink-2 hover:bg-surface-2 hover:text-ink">
-                <i className={cx('size-[5px] rounded-full', chip === 'ask' ? 'bg-ask' : 'animate-breathe bg-signal')} />
-                {chip === 'ask' ? '1 needs you' : '1 running'}
-              </button>
+            <div className="mb-2 flex items-center gap-2 text-meta text-ink-3">
+              {chip === 'live' ? (
+                <button
+                  type="button"
+                  onClick={() => { if (id === 'austin' && !austinSent) setRun((n) => n + 1); else navigate('/chat/austin'); }}
+                  className="inline-flex items-center gap-2 text-left hover:text-ink-2"
+                >
+                  <Dotm className="origin-center scale-[0.72]" />
+                  <span className="kee-status-shimmer">Kee is working</span>
+                </button>
+              ) : (
+                <span className="inline-flex items-center gap-2">
+                  <i className="size-[5px] rounded-full bg-ask" />
+                  Kee needs you
+                </span>
+              )}
             </div>
           ) : null}
 
@@ -442,6 +447,25 @@ export function Chat() {
   );
 }
 
+function StepLabel({ label, live }: { label: string; live: boolean }) {
+  return (
+    <span className={cx('grid h-[22px] overflow-hidden', live && 'animate-breathe')}>
+      <AnimatePresence initial={false}>
+        <motion.span
+          key={label}
+          initial={{ y: '100%', opacity: 0.55 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '-100%', opacity: 0.25 }}
+          transition={{ duration: 0.36, ease: [0.23, 1, 0.32, 1] }}
+          className="col-start-1 row-start-1 block h-[22px] leading-[22px] whitespace-nowrap"
+        >
+          <Markup text={label} />
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
 function IconChevronDown() {
   return <IconChevronRight size={10} className="rotate-90" />;
 }
@@ -473,7 +497,9 @@ function BlockView({ block, first, card, rowsRef, onToggle, onStop, onStreamed }
     return (
       <>
         <button type="button" aria-expanded={block.open} onClick={block.details.length ? onToggle : undefined} className="group mb-[13px] flex items-center gap-1 px-3 text-step-2">
-          <span className={cx('[&_b]:font-normal [&_b]:text-step group-hover:text-ink-2 group-hover:[&_b]:text-ink-2', block.live && 'animate-breathe')}><Markup text={block.label} /></span>
+          <span className="text-left [&_b]:font-normal [&_b]:text-step group-hover:text-ink-2 group-hover:[&_b]:text-ink-2">
+            <StepLabel label={block.label} live={block.live} />
+          </span>
           {block.details.length ? <IconChevronRight size={10} className={cx('opacity-0 transition-opacity group-hover:opacity-100', block.open && 'rotate-90 opacity-100')} /> : null}
         </button>
         {block.details.length ? (

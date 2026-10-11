@@ -216,3 +216,27 @@
   :focus-visible { outline: 2px solid var(--accent-line); outline-offset: 2px; }
   textarea:focus-visible, input:focus-visible { outline: none; }
 }
+
+@keyframes shimmer-text {
+  from { background-position: 150% center; }
+  to { background-position: -50% center; }
+}
+
+@layer components {
+  .kee-status-shimmer {
+    background: linear-gradient(90deg, var(--ink-3) 38%, var(--ink-2) 50%, var(--ink-3) 62%) 150% 0 / 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer-text 2.2s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kee-status-shimmer {
+      animation: none;
+      background: none;
+      -webkit-background-clip: unset;
+      background-clip: unset;
+      color: var(--ink-3);
+    }
+  }
+}
