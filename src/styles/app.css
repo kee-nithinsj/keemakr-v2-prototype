@@ -1,0 +1,216 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: Lato;
+  src: url('/fonts/lato-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: Lato;
+  src: url('/fonts/lato-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+/* Same values as the static prototype. Dark is the default. */
+:root {
+  --bg: #141414;
+  --side: #161616;
+  --surface: #212121;
+  --surface-2: #262626;
+  --frame: #0f0f0f;
+  --hover: #1d1d1d;
+  --sel: #232323;
+  --line: #262626;
+  --line-2: #303030;
+  --ink: #e7e7e7;
+  --ink-2: #a9a9a9;
+  --ink-3: #7e7e7e;
+  --ink-4: #5c5c5c;
+  --step: #9a9a9a;
+  --step-2: #626262;
+  --plus: #2c2c2c;
+  --card: #141414;
+  --chip: #252525;
+  --edge: #262626;
+  --send-off: #3a3a3a;
+  --signal: #ff6b2c;
+  --accent: #c4592b;
+  --accent-ink: #d98a63;
+  --accent-soft: rgba(196, 89, 43, 0.1);
+  --accent-line: rgba(196, 89, 43, 0.32);
+  --on-accent: #ffffff;
+  --ask: #5a9cf8;
+  --ok: #58b87f;
+  --pal: #161616;
+  --pop: 0 16px 48px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px #2c2c2c;
+  --lift: none;
+  --wb-dot: rgba(255, 255, 255, 0.045);
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --bg: #f2f2f2;
+  --side: #e0e0e0;
+  --surface: #fcfcfc;
+  --surface-2: #f4f4f4;
+  --frame: #e0e0e0;
+  --hover: #d9d9d9;
+  --sel: #d4d4d4;
+  --line: #e6e6e6;
+  --line-2: #d9d9d9;
+  --ink: #0e0e0e;
+  --ink-2: #555555;
+  --ink-3: #7d7d7d;
+  --ink-4: #a6a6a6;
+  --step: #7d7d7d;
+  --step-2: #a8a8a8;
+  --plus: #ececec;
+  --card: #fcfcfc;
+  --chip: #e6e6e6;
+  --edge: #e4e4e4;
+  --send-off: #d0d0d0;
+  --signal: #f05a1a;
+  --accent: #c4592b;
+  --accent-ink: #a8481f;
+  --accent-soft: rgba(196, 89, 43, 0.08);
+  --accent-line: rgba(196, 89, 43, 0.3);
+  --on-accent: #ffffff;
+  --ask: #2f6fd6;
+  --ok: #1f9a57;
+  --pal: #fcfcfc;
+  --pop: 0 16px 48px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --lift: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.035);
+  --wb-dot: rgba(0, 0, 0, 0.055);
+  color-scheme: light;
+}
+
+@theme inline {
+  --font-sans: Lato, ui-sans-serif, system-ui, sans-serif;
+  --ease-kee: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --color-bg: var(--bg);
+  --color-side: var(--side);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-frame: var(--frame);
+  --color-hover: var(--hover);
+  --color-sel: var(--sel);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-4: var(--ink-4);
+  --color-step: var(--step);
+  --color-step-2: var(--step-2);
+  --color-plus: var(--plus);
+  --color-card: var(--card);
+  --color-chip: var(--chip);
+  --color-edge: var(--edge);
+  --color-send-off: var(--send-off);
+  --color-signal: var(--signal);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+  --color-ask: var(--ask);
+  --color-ok: var(--ok);
+  --color-pal: var(--pal);
+  --shadow-pop: var(--pop);
+  --shadow-lift: var(--lift);
+
+  --text-micro: 10.5px;
+  --text-micro--line-height: 14px;
+  --text-caption: 11.5px;
+  --text-caption--line-height: 16px;
+  --text-meta: 12px;
+  --text-meta--line-height: 16px;
+  --text-ui: 12.5px;
+  --text-ui--line-height: 18px;
+  --text-btn: 13px;
+  --text-btn--line-height: 18px;
+  --text-body: 14px;
+  --text-body--line-height: 21px;
+  --text-chat: 14px;
+  --text-chat--line-height: 22.4px;
+  --text-lead: 16px;
+  --text-lead--line-height: 24px;
+  --text-card: 17px;
+  --text-card--line-height: 24px;
+  --text-greeting: 28px;
+  --text-greeting--line-height: 34px;
+
+  --animate-rise: rise 280ms var(--ease-kee) both;
+  --animate-rowin: rowin 260ms var(--ease-kee) both;
+  --animate-breathe: breathe 1.6s var(--ease-io) infinite;
+  --animate-drift: drift 14s ease-in-out infinite alternate;
+  --animate-twinkle: twinkle 3.4s ease-in-out infinite;
+  --animate-fall: fall 1s linear infinite;
+  --animate-puff: puff 4.5s ease-out infinite;
+  --animate-glow: glow 5s ease-in-out infinite;
+  --animate-dotm: dotm 1.11s linear infinite;
+  --animate-spin-slow: spin 80s linear infinite;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes rowin {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes breathe {
+    50% { opacity: 0.35; }
+  }
+  @keyframes drift {
+    from { transform: translateX(-12px); }
+    to { transform: translateX(16px); }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.25; }
+    50% { opacity: 1; }
+  }
+  @keyframes fall {
+    from { transform: translateY(-6px); opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    to { transform: translateY(34px); opacity: 0; }
+  }
+  @keyframes puff {
+    from { transform: translate(0, 0) scale(0.6); opacity: 0.9; }
+    to { transform: translate(8px, -22px) scale(1.6); opacity: 0; }
+  }
+  @keyframes glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  @keyframes dotm {
+    0%, 100% { opacity: 0.08; }
+    10% { opacity: 1; }
+    20% { opacity: 0.61; }
+    30% { opacity: 0.39; }
+    40% { opacity: 0.14; }
+  }
+}
+
+@layer base {
+  html, body, #root { height: 100%; }
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  svg { display: block; flex: none; }
+  b, strong { font-weight: 500; }
+  ::selection { background: rgba(196, 89, 43, 0.28); }
+  :focus-visible { outline: 2px solid var(--accent-line); outline-offset: 2px; }
+  textarea:focus-visible, input:focus-visible { outline: none; }
+}
