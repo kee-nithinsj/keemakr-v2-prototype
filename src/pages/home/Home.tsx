@@ -142,10 +142,13 @@ export function Home() {
     <main className={cx(canvas, 'grid grid-rows-[auto_minmax(0,1fr)] text-body')} style={theme === 'light' ? canvasLight : undefined}>
       <AppBar />
       <section className="grid min-h-0 grid-rows-[minmax(0,1fr)]">
-        <div className="flex min-h-0 flex-col overflow-hidden">
+        <div className="relative flex min-h-0 flex-col overflow-hidden">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--wb-dot)_0.55px,transparent_0.65px)] [background-size:var(--wb-size)_var(--wb-size)]"
+          />
           <Sky sky={sky} theme={theme} onCycle={() => setSky((s) => nextSky(s))} />
           <div className="relative grid min-h-0 flex-1 grid-cols-1 min-[1180px]:grid-cols-[minmax(0,1fr)_340px]">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,var(--wb-dot)_0.55px,transparent_0.65px)] [background-size:16px_16px]" />
             <div className="relative grid min-h-0 min-w-0 grid-rows-[auto_minmax(0,1fr)_auto]">
               <div className="pb-[18px]">
                 <div className="mx-auto w-[min(880px,calc(100%-96px))]">
