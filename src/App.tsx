@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Shell } from '@/components/shell/Shell';
 import { ShellProvider } from '@/components/shell/shell-context';
 import { Chat } from '@/pages/chat/Chat';
+import { Connections } from '@/pages/connections/Connections';
 import { Conversations } from '@/pages/conversations/Conversations';
 import { Home } from '@/pages/home/Home';
 import { Module } from '@/pages/module/Module';
@@ -17,6 +18,7 @@ export function App() {
           <Route path="conversations" element={<Conversations />} />
           <Route path="m/:dept/:screen" element={<Module />} />
           <Route path="tables/:id?" element={<Tables />} />
+          <Route path="connections" element={<Connections />} />
         </Route>
       </Routes>
     </ShellProvider>

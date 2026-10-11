@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
+import { CONNECTIONS, type Connection } from '@/data/connections';
 
 export type ThemeName = 'dark' | 'light';
 
@@ -13,6 +14,8 @@ type Shell = {
   setHomeCount: (n: number) => void;
   inboxCount: number;
   setInboxCount: (n: number) => void;
+  connections: Connection[];
+  setConnections: Dispatch<SetStateAction<Connection[]>>;
   toast: Toast | null;
   showToast: (text: string, undo?: () => void) => void;
   hideToast: () => void;
@@ -27,6 +30,7 @@ export function ShellProvider({ children }: { children: ReactNode }) {
   const [sideOpen, setSide] = useState(() => localStorage.getItem('kee-side') !== 'closed');
   const [homeCount, setHomeCount] = useState(5);
   const [inboxCount, setInboxCount] = useState(4);
+  const [connections, setConnections] = useState(CONNECTIONS);
   const [toast, setToast] = useState<Toast | null>(null);
 
   const toggleTheme = useCallback(() => {
@@ -50,8 +54,8 @@ export function ShellProvider({ children }: { children: ReactNode }) {
   const hideToast = useCallback(() => setToast(null), []);
 
   const value = useMemo(
-    () => ({ theme, toggleTheme, sideOpen, setSideOpen, homeCount, setHomeCount, inboxCount, setInboxCount, toast, showToast, hideToast }),
-    [theme, toggleTheme, sideOpen, setSideOpen, homeCount, inboxCount, toast, showToast, hideToast],
+    () => ({ theme, toggleTheme, sideOpen, setSideOpen, homeCount, setHomeCount, inboxCount, setInboxCount, connections, setConnections, toast, showToast, hideToast }),
+    [theme, toggleTheme, sideOpen, setSideOpen, homeCount, inboxCount, connections, toast, showToast, hideToast],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

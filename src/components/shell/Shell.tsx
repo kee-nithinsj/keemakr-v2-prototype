@@ -16,6 +16,7 @@ import {
   IconChevronDown,
   IconDept,
   IconHome,
+  IconLink,
   IconMoon,
   IconPlus,
   IconSearch,
@@ -30,13 +31,15 @@ const NAV = [
   { to: '/chat/new', label: 'New chat', icon: IconPlus, kbd: '⌘N' },
   { to: '/conversations', label: 'Conversations', icon: IconChat },
   { to: '/tables', label: 'Tables', icon: IconTable },
+  { to: '/connections', label: 'Connections', icon: IconLink },
 ] as const;
 
 type PalItem = { group: string; label: string; hint: string; to: string };
 
 export function Shell() {
   const navigate = useNavigate();
-  const { theme, toggleTheme, sideOpen, setSideOpen, homeCount, inboxCount } = useShell();
+  const { theme, toggleTheme, sideOpen, setSideOpen, homeCount, inboxCount, connections } = useShell();
+  const attention = connections.filter((c) => c.status === 'attention').length;
   const [palOpen, setPalOpen] = useState(false);
 
   useEffect(() => {
@@ -96,6 +99,7 @@ export function Shell() {
               {'kbd' in item ? <kbd className="text-meta text-ink-4">{item.kbd}</kbd> : null}
               {item.to === '/' && homeCount > 0 ? <span className="text-ui text-ink-3 tabular-nums">{homeCount}</span> : null}
               {item.to === '/conversations' ? <span className="text-ui text-ink-3 tabular-nums">{inboxCount}</span> : null}
+              {item.to === '/connections' && attention > 0 ? <span className="text-ui text-accent-ink tabular-nums">{attention}</span> : null}
             </NavLink>
           ))}
         </nav>
@@ -174,6 +178,8 @@ function Palette({ open, onClose, inboxCount }: { open: boolean; onClose: () => 
     () => [
       { group: 'Go', label: 'Home', hint: '', to: '/' },
       { group: 'Go', label: 'Conversations', hint: `${inboxCount} need you`, to: '/conversations' },
+      { group: 'Go', label: 'Tables', hint: '', to: '/tables' },
+      { group: 'Go', label: 'Connections', hint: '', to: '/connections' },
       ...DEPARTMENTS.flatMap((d) => [
         ...d.screens.map((s) => ({ group: d.name, label: `${d.name} ${s.label.toLowerCase()}`, hint: '', to: `/m/${d.slug}/${s.id}` })),
         ...d.tables.map((t) => ({ group: d.name, label: t.label, hint: 'Table', to: `/tables/${t.id}` })),
